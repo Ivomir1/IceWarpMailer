@@ -52,11 +52,13 @@ class MailController extends Controller
         try {            
                 if ($mailData['delayed_send'] === Carbon::now()->format('Y-m-d'))
                 {
-                        Mail::to($mailData['email'])->send(new SignUp($mailData));  //odesílám email           
+                        Mail::to($mailData['email'])->queue(new SignUp($mailData));  //posílám email do fronty s odeslanim ihned          
                 }
                  else 
-                        Mail::to($mailData['email'])->later(1, new SignUp($mailData));  //přidávám do fronty email           
-
+                 {
+                        $delayedSendDate = Carbon::parse($mailData['delayed_send'])->startOfDay();
+                        Mail::to($mailData['email'])->later($delayedSendDate, new SignUp($mailData)); // Zařazení e-mailu do fronty pro odložené odeslání           
+                 }
             Log::info(json_encode($mailData)); //loguji odeslaný email            
             return response()->json(['message' => 'Email has been sent.', 'status' => '200'], Response::HTTP_OK);
         } catch (\Exception $e) {  //chytám případnou vyjímku pokud by se nepodařilo email odeslat, chyby vracím jako JSON.
