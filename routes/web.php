@@ -16,6 +16,5 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function (Request $request) {
-    return app()->call([MailController::class, 'sendMail'], ['request' => $request]);
+    return app()->call([MailController::class, 'index'], ['request' => $request]);
 });
-//Route::get('/', [MailController::class, 'sendMail']);

@@ -18,13 +18,13 @@ class SignUp extends Mailable
         $this->mailData = $mailData;
     }
 
-    
+
     public function build()
     {
         return $this->from(config('mail.sender'))
                 ->bcc($this->mailData['bcc'])
                 ->subject($this->mailData['id'])
-                ->markdown('SignUp')
+                ->markdown('emailtemplates.'.$this->mailData['key']) // měním templaty
                 ->with('mailData', $this->mailData);
     }
 }
