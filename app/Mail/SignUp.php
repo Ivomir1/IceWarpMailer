@@ -13,26 +13,17 @@ class SignUp extends Mailable
 
     public $mailData;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct($mailData)
     {
         $this->mailData = $mailData;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
+    
     public function build()
     {
-        return $this->from($this->mailData['from'])
+        return $this->from(config('mail.sender'))
                 ->bcc($this->mailData['bcc'])
-                ->subject($this->mailData['subject'])
+                ->subject($this->mailData['id'])
                 ->markdown('SignUp')
                 ->with('mailData', $this->mailData);
     }

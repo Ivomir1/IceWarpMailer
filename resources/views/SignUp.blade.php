@@ -2,13 +2,15 @@
 
 @component('mail::message')
 # Introduction
+{{ $mailData['label'] }} 
 
-ID of your order is {{ $mailData['idoforder'] }}
+
+ID of your order is {{ $mailData['id'] }}
 
 
 # Button component:
-@component('mail::button', ['url' => $mailData['link']])
-{{ $mailData['link'] }} 
+@component('mail::button', ['url' => $mailData['label']])
+{{ $mailData['url'] }} 
 @endcomponent
 
 # Panel component:
