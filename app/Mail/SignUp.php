@@ -11,7 +11,7 @@ class SignUp extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $mailData;
+    protected $mailData; // email v array
 
     public function __construct($mailData)
     {

@@ -57,7 +57,7 @@ class MailController extends Controller
                     Log::warning(json_encode($mailData)); //loguji chybu       
                     return response()->json(['message' =>  $mailData['state'], 'status' => '405'], Response::HTTP_METHOD_NOT_ALLOWED);
                  }
-                 else
+                 else //jinak je datum v budoucnosti
                  {
                         $delayedSendDate = Carbon::parse($mailData['delayed_send'])->startOfDay(); // o kolik dnu pozdeji mam poslat
                         Mail::to($mailData['email'])->later($delayedSendDate, new SignUp($mailData)); // Zařazení e-mailu do fronty pro odložené odeslání           
